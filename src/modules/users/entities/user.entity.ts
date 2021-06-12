@@ -1,6 +1,4 @@
 import { hash } from 'bcrypt';
-import { FileEntity } from 'src/modules/files/file.entity';
-import { RoleEntity } from 'src/modules/roles/role.entity';
 import {
   BaseEntity,
   BeforeInsert,
@@ -8,8 +6,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -91,37 +87,12 @@ export class UserEntity extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
   updatedAt: Date;
 
-  @OneToOne(
-    () => UserDetailEntity,
-    details => details.user,
-    {
-      nullable: false,
-      eager: true,
-      cascade: true,
-    },
-  )
-  details: UserDetailEntity;
-
-  @ManyToMany(() => RoleEntity, { eager: true })
-  @JoinTable({
-    name: 'user_role',
-    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
-  })
-  roles: RoleEntity[];
-
-  @ManyToMany(() => FileEntity, {
-    nullable: true,
+  @OneToOne(() => UserDetailEntity, (details) => details.user, {
+    nullable: false,
     eager: true,
     cascade: true,
-    onDelete: 'CASCADE',
   })
-  @JoinTable({
-    name: 'user_file',
-    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'file_id', referencedColumnName: 'id' },
-  })
-  files: FileEntity[];
+  details: UserDetailEntity;
 
   @BeforeInsert()
   @BeforeUpdate()

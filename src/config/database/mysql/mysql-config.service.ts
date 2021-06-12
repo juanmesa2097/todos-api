@@ -5,6 +5,10 @@ import { ConfigService } from '@nestjs/config';
 export class MysqlConfigService {
   constructor(private readonly _configService: ConfigService) {}
 
+  get type(): string {
+    return this._configService.get<string>('mysql.type');
+  }
+
   get database(): string {
     return this._configService.get<string>('mysql.database');
   }
