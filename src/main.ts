@@ -17,7 +17,7 @@ async function bootstrap() {
   // Get config service instance
   const appConfig: AppConfigService = app.get('AppConfigService');
 
-  await app.listen(appConfig.port);
+  await app.listen(process.env.PORT || appConfig.port);
 }
 
 bootstrap();
