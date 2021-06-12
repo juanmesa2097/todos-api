@@ -21,12 +21,12 @@ export class AuthService {
     return await this._usersService.getByUsername(username);
   }
 
-  async register(createUserDto: CreateUserDto): Promise<GetUserDto> {
+  async signUp(createUserDto: CreateUserDto): Promise<GetUserDto> {
     const user = await this._usersService.create(createUserDto);
     return plainToClass(GetUserDto, user);
   }
 
-  async login(loginUserDto: LoginUserDto): Promise<LoginResult> {
+  async signIn(loginUserDto: LoginUserDto): Promise<LoginResult> {
     const user = await this._usersService.getByLoginCredentials(loginUserDto);
     const token: Token = this._createToken(user);
     return { user, token };

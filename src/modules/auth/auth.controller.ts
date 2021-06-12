@@ -7,13 +7,13 @@ import { LoginResult } from './interfaces';
 export class AuthController {
   constructor(private readonly _authService: AuthService) {}
 
-  @Post('register')
-  async register(@Body() createUserDto: CreateUserDto): Promise<GetUserDto> {
-    return await this._authService.register(createUserDto);
+  @Post('sign-up')
+  async signUp(@Body() createUserDto: CreateUserDto): Promise<GetUserDto> {
+    return await this._authService.signUp(createUserDto);
   }
 
-  @Post('login')
-  async login(@Body() loginUserDto: LoginUserDto): Promise<LoginResult> {
-    return await this._authService.login(loginUserDto);
+  @Post('sign-in')
+  async signIn(@Body() loginUserDto: LoginUserDto): Promise<LoginResult> {
+    return await this._authService.signIn(loginUserDto);
   }
 }

@@ -26,17 +26,6 @@ export class UsersService {
     return users.map((user) => plainToClass(GetUserDto, user));
   }
 
-  async getById(id: string): Promise<GetUserDto> {
-    this._logger.log(`Request to fetch user by id: ${id}`);
-    const user = await this._userRepository.findOne(id);
-
-    if (!user) {
-      throw new NotFoundException('User was not found');
-    }
-
-    return plainToClass(GetUserDto, user);
-  }
-
   async getByUsername(username: string): Promise<GetUserDto> {
     this._logger.log(`Request to fetch user by username: ${username}`);
     const user = await this._userRepository.findOne({ where: { username } });
